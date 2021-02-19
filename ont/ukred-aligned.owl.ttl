@@ -1,0 +1,303 @@
+@prefix : <http://data.open.ac.uk/ontology/red/> .
+@prefix ns: <http://www.w3.org/2006/vcard/ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cito: <http://purl.org/spar/cito/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@prefix sesame: <http://www.openrdf.org/schema/sesame#> .
+@prefix baseUri: <urn:default:baseUri:#> .
+@prefix linkedevent: <http://linkedevent.org/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix hint: <http://www.bigdata.com/queryHints#> .
+@prefix bd: <http://www.bigdata.com/rdf#> .
+@prefix bds: <http://www.bigdata.com/rdf/search#> .
+@prefix ceo: <http://readit-project/ontology/> .
+@prefix reo: <http://readit-project/ont/datamodel#> .
+@prefix cdocreo: <http://dataforhistory.org/read-it-ongoing/class/> .
+@prefix cdoc: <http://www.cidoc-crm.org/cidoc-crm/> .
+@base <http://data.open.ac.uk/ontology/red/> .
+
+<http://data.open.ac.uk/ontology/red/> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://linkedevent.org/locatedIn
+linkedevent:locatedIn rdf:type owl:ObjectProperty ;
+                      rdfs:domain baseUri:Experience ;
+                      rdfs:range <http://www.w3.org/2006/vcard/ns#Address> .
+
+
+###  http://purl.org/dc/terms/creator
+terms:creator rdf:type owl:ObjectProperty ;
+              rdfs:domain foaf:Document ;
+              rdfs:range foaf:Person .
+
+
+###  http://purl.org/dc/terms/editor
+terms:editor rdf:type owl:ObjectProperty ;
+             rdfs:domain foaf:Document .
+
+
+###  http://purl.org/spar/cito/givesBackgroundTo
+cito:givesBackgroundTo rdf:type owl:ObjectProperty .
+
+
+###  http://purl.org/spar/cito/providesExcerptFor
+cito:providesExcerptFor rdf:type owl:ObjectProperty ;
+                        rdfs:domain foaf:Document ;
+                        rdfs:range foaf:Document .
+
+
+###  http://www.w3.org/2006/vcard/ns#adr
+ns:adr rdf:type owl:ObjectProperty ;
+       owl:equivalentProperty baseUri:originCountry ;
+       rdfs:domain foaf:Person ;
+       rdfs:range <http://www.w3.org/2006/vcard/ns#Address> .
+
+
+###  http://xmlns.com/foaf/0.1/gender
+foaf:gender rdf:type owl:ObjectProperty ;
+            owl:equivalentProperty baseUri:gender .
+
+
+###  urn:default:baseUri:#gender
+baseUri:gender rdf:type owl:ObjectProperty ;
+               rdfs:domain foaf:Person ;
+               rdfs:range :Gender .
+
+
+###  urn:default:baseUri:#listenerInvolved
+baseUri:listenerInvolved rdf:type owl:ObjectProperty ;
+                         rdfs:domain baseUri:Experience ;
+                         rdfs:range foaf:Person .
+
+
+###  urn:default:baseUri:#occupation
+baseUri:occupation rdf:type owl:ObjectProperty ;
+                   rdfs:domain foaf:Person ;
+                   rdfs:range :Occupation .
+
+
+###  urn:default:baseUri:#originCountry
+baseUri:originCountry rdf:type owl:ObjectProperty ;
+                      rdfs:domain foaf:Person ;
+                      rdfs:range <http://www.w3.org/2006/vcard/ns#Address> .
+
+
+###  urn:default:baseUri:#readerInvolved
+baseUri:readerInvolved rdf:type owl:ObjectProperty ;
+                       rdfs:domain baseUri:Experience ;
+                       rdfs:range foaf:Person .
+
+
+###  urn:default:baseUri:#religion
+baseUri:religion rdf:type owl:ObjectProperty ;
+                 rdfs:domain foaf:Person ;
+                 rdfs:range :Religion .
+
+
+###  urn:default:baseUri:#textInvolved
+baseUri:textInvolved rdf:type owl:ObjectProperty ;
+                     rdfs:domain baseUri:Experience ;
+                     rdfs:range foaf:Document .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://data.open.ac.uk/ontology/red/citation
+:citation rdf:type owl:DatatypeProperty ;
+          rdfs:domain baseUri:Experience ;
+          rdfs:range xsd:string .
+
+
+###  http://data.open.ac.uk/ontology/red/frequency
+:frequency rdf:type owl:DatatypeProperty ;
+           rdfs:domain baseUri:Experience ;
+           rdfs:range [ rdf:type rdfs:Datatype ;
+                        owl:oneOf [ rdf:type rdf:List ;
+                                    rdf:first "serial" ;
+                                    rdf:rest [ rdf:type rdf:List ;
+                                               rdf:first "single" ;
+                                               rdf:rest [ rdf:type rdf:List ;
+                                                          rdf:first "unknwon" ;
+                                                          rdf:rest rdf:nil
+                                                        ]
+                                             ]
+                                  ]
+                      ] .
+
+
+###  http://data.open.ac.uk/ontology/red/listener_engagement
+:listener_engagement rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Experience_Listener ;
+                     rdfs:range [ rdf:type rdfs:Datatype ;
+                                  owl:oneOf [ rdf:type rdf:List ;
+                                              rdf:first "reactive" ;
+                                              rdf:rest [ rdf:type rdf:List ;
+                                                         rdf:first "solitary" ;
+                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                    rdf:first "unknown" ;
+                                                                    rdf:rest rdf:nil
+                                                                  ]
+                                                       ]
+                                            ]
+                                ] .
+
+
+###  http://data.open.ac.uk/ontology/red/reader_engagement
+:reader_engagement rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Experience_Reader ;
+                   rdfs:range [ rdf:type rdfs:Datatype ;
+                                owl:oneOf [ rdf:type rdf:List ;
+                                            rdf:first "in company" ;
+                                            rdf:rest [ rdf:type rdf:List ;
+                                                       rdf:first "solitary" ;
+                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                  rdf:first "unknown" ;
+                                                                  rdf:rest rdf:nil
+                                                                ]
+                                                     ]
+                                          ]
+                              ] .
+
+
+###  http://data.open.ac.uk/ontology/red/reading_modality
+:reading_modality rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Experience_Reader ;
+                  rdfs:range [ rdf:type rdfs:Datatype ;
+                               owl:oneOf [ rdf:type rdf:List ;
+                                           rdf:first "aloud" ;
+                                           rdf:rest [ rdf:type rdf:List ;
+                                                      rdf:first "silet" ;
+                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                 rdf:first "unknown" ;
+                                                                 rdf:rest rdf:nil
+                                                               ]
+                                                    ]
+                                         ]
+                             ] .
+
+
+###  http://data.open.ac.uk/ontology/red/time
+:time rdf:type owl:DatatypeProperty ;
+      rdfs:domain baseUri:Experience ;
+      rdfs:range xsd:string .
+
+
+###  http://linkedevent.org/date
+linkedevent:date rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:domain baseUri:Experience ;
+                 rdfs:range xsd:string .
+
+
+###  http://purl.org/dc/terms/description
+terms:description rdf:type owl:DatatypeProperty ;
+                  rdfs:domain foaf:Document ;
+                  rdfs:range xsd:string .
+
+
+###  http://purl.org/dc/terms/published
+terms:published rdf:type owl:DatatypeProperty ;
+                rdfs:domain foaf:Document ;
+                rdfs:range xsd:string .
+
+
+###  http://purl.org/dc/terms/title
+terms:title rdf:type owl:DatatypeProperty ;
+            rdfs:domain foaf:Document ;
+            rdfs:range xsd:string .
+
+
+###  http://www.w3.org/2006/vcard/ns#country-name
+ns:country-name rdf:type owl:DatatypeProperty ;
+                rdfs:domain <http://www.w3.org/2006/vcard/ns#Address> ;
+                rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://data.open.ac.uk/ontology/red/Experience_Listener
+:Experience_Listener rdf:type owl:Class ;
+                     rdfs:subClassOf baseUri:Experience .
+
+
+###  http://data.open.ac.uk/ontology/red/Experience_Reader
+:Experience_Reader rdf:type owl:Class ;
+                   rdfs:subClassOf baseUri:Experience .
+
+
+###  http://data.open.ac.uk/ontology/red/Gender
+:Gender rdf:type owl:Class .
+
+
+###  http://data.open.ac.uk/ontology/red/Occupation
+:Occupation rdf:type owl:Class .
+
+
+###  http://data.open.ac.uk/ontology/red/Religion
+:Religion rdf:type owl:Class .
+
+
+###  http://xmlns.com/foaf/0.1/Document
+foaf:Document rdf:type owl:Class .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+foaf:Person rdf:type owl:Class .
+
+
+###  ttp://www.w3.org/2006/vcard/ns#Address
+<http://www.w3.org/2006/vcard/ns#Address> rdf:type owl:Class .
+
+
+###  urn:default:baseUri:#Experience
+baseUri:Experience rdf:type owl:Class .
+
+
+
+
+#################################################################
+#    Mappings
+#################################################################
+
+
+
+################# READ-IT Crowdsourcing Experience Ontology mappings ######################
+
+:Document rdfs:subClassOf ceo:CreativeWork .
+:Document owl:equivalentClass ceo:Resource .
+:Experience owl:equivalentClass ceo:Observation .
+
+
+################# READ-IT Reading Experience Ontology V2.0 mappings ######################
+
+foaf:Person owl:equivalentClass reo:Person .
+:Experience owl:equivalentClass reo:StateOfMind, reo:ReadingProcess .
+
+
+################# READ-IT CIDOC-CRM Reading Experience Ontology V1.2 mappings ######################
+
+:Religion owl:equivalentClass cdocreo:REO15 .
+:Address owl:equivalentClass cdocreo:REO9 .
+:Gender owl:equivalentClass cdocreo:REO5 .
+:Experience_Reader owl:equivalentClass cdocreo:REO12, cdocreo:REO2, cdoc:E7 .
+foaf:Person owl:equivalentClass cdoc:E21 .
+
+:originCountry owl:inverseOf cdocreo:readP2 .
+:occupation owl:equivalentProperty cdocreo:readP1 .
+:religion owl:inverseOf cdocreo:readP4 .
+
+:frequency owl:equivalentProperty cdocreo:E7 .
+:reader_engagement owl:equivalentProperty cdocreo:E55 .
+

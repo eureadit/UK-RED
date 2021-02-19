@@ -1,4 +1,0 @@
-# UK-RED
-Ontology, data and mappings of the [UK Reading Experience Database](https://www.open.ac.uk/Arts/reading/UK/) (UK-RED). Data of the UK-RED can be explored throught the [UK-RED legact portal](https://www.open.ac.uk/Arts/reading/UK/) or downloaded from [The Open University portal for research data](https://ordo.open.ac.uk/articles/dataset/UK_Reading_Experience_Database_data_export/13308911) (ORDO).
-
-This repository includes an export of data in RDF/Turtle format (```UK-RED-VX.owl.ttl```) including an updated version of the UK-RED Ontology in OWL and mappings to the [Reading Experience Ontology](https://github.com/eureadit/reading-experience-ontology) (REO), [Crowdsourcing Experience Ontology](https://github.com/eureadit/reading-experience-ontology) (CEO) and the [DBPedia entries](https://wiki.dbpedia.org/) of historical figures.
